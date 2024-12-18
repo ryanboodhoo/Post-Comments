@@ -30,12 +30,13 @@ public class CommentController {
          return commentService.getAllComments();
     }
 
-    //Get All comments
+    //Get All commentsByID
     @GetMapping("/comments/{id}")
     public ResponseEntity<?> getACommentById(@PathVariable Long id) {
         return commentService.getACommentById(id);
     }
 
+    //getAllCommentsByPostId
 @GetMapping("/comments/{id}/comments")
     public Iterable <Comment> getAllCommentsByPostId(@PathVariable Long id){
         return  commentService.getAllCommentsByPostId(id);
