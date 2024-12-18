@@ -13,6 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+
 @RestController
 public class PostController {
 
@@ -27,8 +28,8 @@ public class PostController {
         return ResponseEntity.ok(postService.getAllPosts());
     }
 
-    @PostMapping("/make/posts")
-    public ResponseEntity<Void> createPost(@RequestBody Post post) {
+    @PostMapping("/posts")
+    public void createPost(@RequestBody Post post) {
         postService.addPost(post);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -36,7 +37,7 @@ public class PostController {
                 .buildAndExpand(post.getId())
                 .toUri();
         logger.info("Created a new post with an id of " + post.getId());
-        return ResponseEntity.created(location).build();
+        postService.addPost(post);
     }
 
     //Update a Post
@@ -51,9 +52,20 @@ public class PostController {
 
     }
 
+    @GetMapping("/post/search")
+    public List<Post> getAllPostByTitle(@RequestParam(name = "titles")String title){
+        return postService.findByTitle(title);
+    }
+
     @GetMapping("/searchpost")
-    public Iterable <Post> searchPost(@RequestParam("query") String query){
+    public Iterable<Post> searchPostByTitle(@RequestParam("query") String query) {
         return postService.getAllPostByTitle(query);
+    }
+
+    @DeleteMapping("/posts/{postId}")
+    public void deletePost(@PathVariable Long postId) {
+        logger.info("Deleted a post with an id of " + postId);
+        postService.deletePost(postId);
     }
 }
 

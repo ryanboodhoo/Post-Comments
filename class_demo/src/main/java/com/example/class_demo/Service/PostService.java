@@ -29,6 +29,10 @@ public class PostService {
     public void addPost(Post post){
         postRepo.save(post);
     }
+    //DELETE POST
+    public void deletePost(Long id){
+    postRepo.deleteById(id);
+    }
 
      public ResponseEntity<?> getAPostById(Long postId)throws ResourceNotFoundException  {
          Post post = postRepo.findById(postId).orElse(null);
@@ -53,5 +57,9 @@ public class PostService {
 
     public Iterable<Post> getAllPostByTitle (String query) {
        return postRepo.searchPosts(query);
+     }
+
+     public List<Post>findByTitle(String title){
+        return postRepo.findByTitle(title);
      }
 }
