@@ -7,13 +7,24 @@ import jakarta.persistence.*;
 public class Post {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "userId")
+
+    private User user;
+
+
 
     private String title;
 
     @Lob
     private String content;
+
+    public Post(User user) {
+        this.user = user;
+    }
 
     public Long getId() {
         return id;
@@ -38,4 +49,9 @@ public class Post {
     public void setContent(String content) {
         this.content = content;
     }
+
+    public User getUser() {return user;}
+
+    public void setUser(User user) {this.user = user;}
+
 }

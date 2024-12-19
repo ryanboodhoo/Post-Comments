@@ -3,6 +3,8 @@ package com.example.class_demo.controllers;
 
 import com.example.class_demo.Service.PostService;
 import com.example.class_demo.entities.Post;
+import com.example.class_demo.entities.User;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,21 +55,25 @@ public class PostController {
     }
 
     @GetMapping("/post/search")
-    public List<Post> getAllPostByTitle(@RequestParam(name = "titles")String title){
+    public List<Post> getAllPostByTitle(@RequestParam(name = "titles") String title) {
         return postService.findByTitle(title);
     }
 
+    //getAllPostByTitle using Query Parameters = @RequestParam
     @GetMapping("/searchpost")
     public Iterable<Post> searchPostByTitle(@RequestParam("query") String query) {
         return postService.getAllPostByTitle(query);
     }
 
+    //delete a post
     @DeleteMapping("/posts/{postId}")
     public void deletePost(@PathVariable Long postId) {
         logger.info("Deleted a post with an id of " + postId);
         postService.deletePost(postId);
     }
+
 }
+
 
 
 

@@ -2,6 +2,7 @@ package com.example.class_demo.Service;
 
 import com.example.class_demo.Exception.ResourceNotFoundException;
 import com.example.class_demo.entities.Post;
+import com.example.class_demo.entities.User;
 import com.example.class_demo.repos.PostRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -62,4 +63,12 @@ public class PostService {
      public List<Post>findByTitle(String title){
         return postRepo.findByTitle(title);
      }
+
+
+        public Post createPostFromUser(User user) {
+            Post post = new Post(user);
+            return postRepo.save(post);
+        }
+
+
 }

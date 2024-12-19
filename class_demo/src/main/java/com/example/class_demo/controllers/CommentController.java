@@ -1,5 +1,6 @@
 package com.example.class_demo.controllers;
 
+import com.example.class_demo.Exception.ResourceNotFoundException;
 import com.example.class_demo.Service.CommentService;
 import com.example.class_demo.entities.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,15 @@ public class CommentController {
          return commentService.getAllComments();
     }
 
-    //Get All commentsByID
-    @GetMapping("/comments/{id}")
-    public ResponseEntity<?> getACommentById(@PathVariable Long id) {
-        return commentService.getACommentById(id);
+    //Get a comment  - throw a resource not found exception
+    @GetMapping("/comments/{commentId}")
+    public ResponseEntity<?> getCommentById(@PathVariable Long commentId) {
+        ResponseEntity<?> comment = commentService.getACommentById(commentId);
+        if (comment == null) {
+            throw new ResourceNotFoundException("Comment not found with ID: " + commentId);
+        }
+        return comment;
     }
-
     //getAllCommentsByPostId
 @GetMapping("/comments/{id}/comments")
     public Iterable <Comment> getAllCommentsByPostId(@PathVariable Long id){
