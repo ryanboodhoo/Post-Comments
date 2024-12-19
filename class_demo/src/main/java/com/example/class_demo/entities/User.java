@@ -2,16 +2,29 @@ package com.example.class_demo.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 public class User {
 
     // @ManyToOne
     // one user can have a multiple post
-    @OneToMany(cascade= CascadeType.ALL)
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name="USER_ID")
     private Long id;
     private String name;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Post> posts;
+
+    public Set<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Set<Post> posts) {
+        this.posts = posts;
+    }
 
     public Long getId() {
         return id;

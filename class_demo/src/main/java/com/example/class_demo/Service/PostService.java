@@ -65,10 +65,10 @@ public class PostService {
      }
 
 
-        public Post createPostFromUser(User user) {
-            Post post = new Post(user);
-            return postRepo.save(post);
-        }
+//        public Post createPostFromUser(User user) {
+//
+//       //     return postRepo.save(post);
+//        }
 
 
 }

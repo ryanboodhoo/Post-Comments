@@ -3,6 +3,8 @@ package com.example.class_demo.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Post {
 
@@ -10,9 +12,8 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "userId")
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="USER_ID")
     private User user;
 
 
@@ -22,9 +23,6 @@ public class Post {
     @Lob
     private String content;
 
-    public Post(User user) {
-        this.user = user;
-    }
 
     public Long getId() {
         return id;
@@ -50,8 +48,11 @@ public class Post {
         this.content = content;
     }
 
-    public User getUser() {return user;}
+    public User getUser() {
+        return user;
+    }
 
-    public void setUser(User user) {this.user = user;}
-
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
