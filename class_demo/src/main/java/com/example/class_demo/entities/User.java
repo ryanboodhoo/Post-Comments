@@ -7,7 +7,7 @@ import java.util.Set;
 @Entity
 public class User {
 
-    // @ManyToOne
+    // @OneToMany
     // one user can have a multiple post
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

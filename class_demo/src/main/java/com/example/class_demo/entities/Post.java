@@ -12,6 +12,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    //Many Post to One User
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="USER_ID")
     private User user;
